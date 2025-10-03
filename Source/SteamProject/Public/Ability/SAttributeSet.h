@@ -24,8 +24,6 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
-private:
-
 	UPROPERTY(EditAnywhere, Replicated = OnRep_Health, Category = "Attribute")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(USAttributeSet, Health);
@@ -53,6 +51,8 @@ private:
 
 	UFUNCTION()
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
+private:
 
+	
 	
 };
