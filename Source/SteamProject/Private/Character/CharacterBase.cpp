@@ -23,6 +23,7 @@ void ACharacterBase::ServerSideInit()
 {
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	AbilitySystemComponent->ApplyInitialEffects();
+	AbilitySystemComponent->GiveInitAbility();
 }
 
 void ACharacterBase::ClientSideInit()

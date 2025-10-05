@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "Ability/SGameplayAbilityTypes.h"
 #include "SAbilitySystemComponent.generated.h"
 
 /**
@@ -15,9 +16,18 @@ class STEAMPROJECT_API USAbilitySystemComponent : public UAbilitySystemComponent
 
 public:
 	void ApplyInitialEffects();
-private:
-	
+	void GiveInitAbility();
 protected:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Abilities")
+	UPROPERTY(EditDefaultsOnly, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayEffect>> InitialGameplayEffects;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Abilities")
+	TMap<ESAbilityInputID ,TSubclassOf<UGameplayAbility>> BaseAbilities; // 기본 공격
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Abilities")
+	TMap<ESAbilityInputID,TSubclassOf<UGameplayAbility>> Abilities; // 스킬
+
+	
+
+
 };
