@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "Character/CharacterBase.h"
 #include "InputActionValue.h"
+#include "Ability/SGameplayAbilityTypes.h"
 #include "PlayerCharacter.generated.h"
 
 class UInputAction;
@@ -43,8 +44,11 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* MoveAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TMap<ESAbilityInputID , UInputAction*> GameplayAbilityInputActions;
 	
 	void Look(const FInputActionValue& InputValue);
 	void Move(const FInputActionValue& InputValue);
-
+	void HandleAbilityInput(const FInputActionValue& InputValue, ESAbilityInputID InputID);
 };

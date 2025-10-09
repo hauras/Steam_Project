@@ -1,6 +1,8 @@
 
 
 #include "Character/PlayerCharacter.h"
+
+#include "AbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -51,6 +53,10 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 		Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 		Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
 
+		for (const TPair<ESAbilityInputID, UInputAction*>& InputActionPair : GameplayAbilityInputActions)
+		{
+			Input->BindAction(InputActionPair.Value, ETriggerEvent::Triggered, this, &APlayerCharacter::HandleAbilityInput, InputActionPair.Key);
+		}
 	}
 }
 
@@ -85,3 +91,19 @@ void APlayerCharacter::Move(const FInputActionValue& InputValue)
 		AddMovementInput(RightDirection, MovementVector.X);
 	}
 }
+
+void APlayerCharacter::HandleAbilityInput(const FInputActionValue& InputValue, ESAbilityInputID InputID)
+{
+	bool bPressed = InputValue.Get<bool>();
+	if (bPressed)
+	{
+		GetAbilitySystemComponent()->AbilityLocalInputPressed((int32)InputID);
+	}
+	else
+	{
+		GetAbilitySystemComponent()->AbilityLocalInputReleased((int32)InputID);
+
+	}
+	
+}
+
